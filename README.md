@@ -19,7 +19,7 @@ Items Used:
   
 Installing Picoscope Drivers:
 * Get drivers from [Pico Technology](https://www.picotech.com/downloads).
-  * Install drivers for 2204A for Windows OS 64-bit: Picoscope (x.x.x)(6.14.10) and PicoSDK (x.x.x)(10.6.13)(64-bit).
+  * As of current, install drivers for 2204A for Windows OS 64-bit: Picoscope (6.14.10) and PicoSDK 64-bit (10.6.13).
 * Install ChipWhisperer software from this [ChipWhisperer Github](https://github.com/newaetech/chipwhisperer/releases/download/v4.0.1/Chipwhisperer.v4.0.1.Setup.32-bit.exe).
   * As of current, ChipWhisperer latest version 5 does not have Picoscope support, so we will be using version 4.
   * ChipWhisperer v4 uses Python 2 so we cannot simply copy the files to ChipWhisperer v5, since v5 uses Python 3.
