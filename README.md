@@ -23,7 +23,7 @@ Installing Picoscope Drivers:
   * As of current, ChipWhisperer latest version 5 does not have Picoscope support.
   * ChipWhisperer v4 uses Python 2 so we cannot simply copy the files to ChipWhisperer v5, since v5 uses Python 3.
   * Go to current installation and modify __init.py on line 362 <br />
-    in our installation path: C:\Program Files (x86)\ChipWhisperer\WinPython-64bit-2.7.13.1Zero\python-2.7.13.amd64\Lib\ctypes\
+    For example, in our installation path: C:\Program Files (x86)\ChipWhisperer\WinPython-64bit-2.7.13.1Zero\python-2.7.13.amd64\Lib\ctypes\
     ```
     if handle is None:
       self._handle = _dlopen(self.name, mode)
