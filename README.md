@@ -6,8 +6,8 @@ Project maintained by Joseph Miller, Arelys Navarro, Michael Lo
 
 ## Tasks
 - [x] 1/28 Deadline for website with detailed proposal, timeline, and reference paper
-* - [ ] Wk. 4 Chip Whisperer hands-on training and tutorials
-  * - [x] Getting the Picoscope to work with ChipWhisperer software
+- [ ] Wk. 4 Chip Whisperer hands-on training and tutorials
+  - [x] Getting the Picoscope to work with ChipWhisperer software
 - [ ] Wk.5-7 Recreate ‘Floating-Point Multiplication Timing Attack on Deep Neural Network’
 - [ ] Wk. 7-10 Expand and further develop experiment
 - [ ] Wk. 10 Create and practice final presentation. Finalize report (site)
@@ -25,13 +25,13 @@ Installing Picoscope Drivers:
   * ChipWhisperer v4 uses Python 2 so we cannot simply copy the files to ChipWhisperer v5, since v5 uses Python 3.
   * Go to current installation and modify __init.py on line 362 <br />
     For example, in our installation path: C:\Program Files (x86)\ChipWhisperer\WinPython-64bit-2.7.13.1Zero\python-2.7.13.amd64\Lib\ctypes\
-    ```
+    ```python
     if handle is None:
       self._handle = _dlopen(self.name, mode)
     else:
     ```
     to
-    ```
+    ```python
     if handle is None:
       self._handle = _dlopen(str(self.name), mode)
     else:
