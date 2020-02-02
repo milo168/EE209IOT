@@ -18,22 +18,18 @@ Items Used:
   
 Installing Picoscope Drivers:
 * Get drivers from [Pico Technology](https://www.picotech.com/downloads).
-  * Install drivers for 2204A. For Windows OS 64-bit: Picoscope (x.x.x)(6.14.10) and PicoSDK (x.x.x)(10.6.13)(64-bit).
+  * Install drivers for 2204A for Windows OS 64-bit: Picoscope (x.x.x)(6.14.10) and PicoSDK (x.x.x)(10.6.13)(64-bit).
 * Install ChipWhisperer software from this [ChipWhisperer Github](https://github.com/newaetech/chipwhisperer/releases/download/v4.0.1/Chipwhisperer.v4.0.1.Setup.32-bit.exe).
   * As of current, ChipWhisperer latest version 5 does not have Picoscope support.
   * ChipWhisperer v4 uses Python 2 so we cannot simply copy the files to ChipWhisperer v5, since v5 uses Python 3.
-  * Go to current installation and modify __init.py on line 362
-  
+  * Go to current installation and modify __init.py on line 362 <br />
     in our installation path: C:\Program Files (x86)\ChipWhisperer\WinPython-64bit-2.7.13.1Zero\python-2.7.13.amd64\Lib\ctypes\
-    
     ```
     if handle is None:
       self._handle = _dlopen(self.name, mode)
     else:
     ```
-    
     to
-  
     ```
     if handle is None:
       self._handle = _dlopen(str(self.name), mode)
