@@ -59,3 +59,10 @@ Installing Picoscope Drivers:
 Addition:
 Addition with Array Accessing:
 ## Implementing Binary Neural Network Classification
+## Integer Attack
+Direct Addition
+Using Arrays
+Memory Access
+Assemby File
+## Floating Points Attack
+Assumptions: popcount is float type
