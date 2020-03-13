@@ -2,7 +2,7 @@
 Project maintained by Joseph Miller, Arelys Navarro, Michael Lo
 
 ## Abstract
-**TODO:** IoT security has become increasingly important as many of these embedded devices capture sensitive data and may even do computation on the spot. Through indirect measurements, it is possible to retrieve sensitive data and its computed results. One such side-channel attack is to measure the power consumption during operation. Certain operations have different power signatures (floating point vs integer operations) and so it is possible to figure out what operation is being done.
+**To Do:** IoT security has become increasingly important as many of these embedded devices capture sensitive data and may even do computation on the spot. Through indirect measurements, it is possible to retrieve sensitive data and its computed results. One such side-channel attack is to measure the power consumption during operation. Certain operations have different power signatures (floating point vs integer operations) and so it is possible to figure out what operation is being done.
 
 ## Tasks
 - [x] 1/28 Deadline for website with detailed proposal, timeline, and reference paper
