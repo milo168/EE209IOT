@@ -22,6 +22,8 @@ Items Used:
   * Raspberry Pi Zero
   * Chipwhisperer Nano
   
+Introduction to Power Analysis:
+  
 Installing Picoscope Drivers:
 * Get drivers from [Pico Technology](https://www.picotech.com/downloads).
   * As of current, install drivers for 2204A for Windows OS 64-bit: Picoscope (6.14.10) and PicoSDK 64-bit (10.6.13).
@@ -47,3 +49,13 @@ Installing Picoscope Drivers:
 1. [Reverse Engineering Neural Networks](https://www.usenix.org/conference/usenixsecurity19/presentation/batina)
 2. [Differential Power Analysis](https://www.paulkocher.com/doc/DifferentialPowerAnalysis.pdf)
 3. [Chip Whisper Tutorial](https://wiki.newae.com/Getting_Started)
+
+## Understanding Floating Point Multiplication
+## Choosing a Neural Network
+## Identifying Patterns in a Neural Network
+
+## Expanding our Project
+## Identifying Addition
+Addition:
+Addition with Array Accessing:
+## Implementing Binary Neural Network Classification
