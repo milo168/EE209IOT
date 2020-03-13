@@ -6,16 +6,21 @@ Project maintained by Joseph Miller, Arelys Navarro, Michael Lo
 
 ## Tasks
 - [x] 1/28 Deadline for website with detailed proposal, timeline, and reference paper
-- [ ] Wk. 4 Chip Whisperer hands-on training and tutorials
+- [x] Wk. 4 Chip Whisperer hands-on training and tutorials
   - [x] Getting the Picoscope to work with ChipWhisperer software
-- [ ] Wk.5-7 Recreate ‘Floating-Point Multiplication Timing Attack on Deep Neural Network’
-- [ ] Wk. 7-10 Expand and further develop experiment
-- [ ] Wk. 10 Create and practice final presentation. Finalize report (site)
+- [x] Wk.5-7 Recreate ‘Floating-Point Multiplication Timing Attack on Deep Neural Network’
+  - [x] Wk. 5 Identify patterns in floating multiplication
+  - [x] Wk. 6 Implement pattern knowledge on Neural Network
+- DELAY Wk. 7-9 Group focused on Assignment #1
+- [x] Wk. 9 Plan steps for further expansion of project
+- [x] Wk. 10 Implement Binary Netral Network Classification by expanding on work previously done
+- [x] Wk. 10 Create and practice final presentation. Finalize report (site)
 
 ## Tutorial Documentation
 Items Used:
   * Picoscope 2204A
-  * --Other HW here--
+  * Raspberry Pi Zero
+  * Chipwhisperer Nano
   
 Installing Picoscope Drivers:
 * Get drivers from [Pico Technology](https://www.picotech.com/downloads).
