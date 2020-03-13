@@ -1,0 +1,800 @@
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"stm32f0_hal_nano.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.comm	UartHandle,112,4
+  20              		.section	.text.platform_init,"ax",%progbits
+  21              		.align	2
+  22              		.global	platform_init
+  23              		.code	16
+  24              		.thumb_func
+  26              	platform_init:
+  27              	.LFB35:
+  28              		.file 1 ".././hal/stm32f0_nano/stm32f0_hal_nano.c"
+   1:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 
+   2:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** #include "stm32f0_hal.h"
+   3:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** #include "stm32f0_hal_lowlevel.h"
+   4:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** #include "stm32f0xx_hal_rcc.h"
+   5:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** #include "stm32f0xx_hal_gpio.h"
+   6:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** #include "stm32f0xx_hal_dma.h"
+   7:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** #include "stm32f0xx_hal_uart.h"
+   8:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** #include "stm32f0xx_hal_flash.h"
+   9:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 
+  10:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** UART_HandleTypeDef UartHandle;
+  11:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 
+  12:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 
+  13:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** void platform_init(void)
+  14:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** {
+  29              		.loc 1 14 0
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 88
+  32              		@ frame_needed = 1, uses_anonymous_args = 0
+  33 0000 80B5     		push	{r7, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 7, -8
+  37              		.cfi_offset 14, -4
+  38 0002 96B0     		sub	sp, sp, #88
+  39              	.LCFI1:
+  40              		.cfi_def_cfa_offset 96
+  41 0004 00AF     		add	r7, sp, #0
+  42              	.LCFI2:
+  43              		.cfi_def_cfa_register 7
+  15:.././hal/stm32f0_nano/stm32f0_hal_nano.c ****     /* LEDs */
+  16:.././hal/stm32f0_nano/stm32f0_hal_nano.c ****     GPIO_InitTypeDef GpioInit;
+  17:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	GpioInit.Pin       = GPIO_PIN_2;
+  44              		.loc 1 17 0
+  45 0006 4423     		movs	r3, #68
+  46 0008 FB18     		adds	r3, r7, r3
+  47 000a 0422     		movs	r2, #4
+  48 000c 1A60     		str	r2, [r3]
+  18:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	GpioInit.Mode      = GPIO_MODE_OUTPUT_PP;
+  49              		.loc 1 18 0
+  50 000e 4423     		movs	r3, #68
+  51 0010 FB18     		adds	r3, r7, r3
+  52 0012 0122     		movs	r2, #1
+  53 0014 5A60     		str	r2, [r3, #4]
+  19:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	GpioInit.Pull      = GPIO_NOPULL;
+  54              		.loc 1 19 0
+  55 0016 4423     		movs	r3, #68
+  56 0018 FB18     		adds	r3, r7, r3
+  57 001a 0022     		movs	r2, #0
+  58 001c 9A60     		str	r2, [r3, #8]
+  20:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	GpioInit.Speed     = GPIO_SPEED_FREQ_HIGH;
+  59              		.loc 1 20 0
+  60 001e 4423     		movs	r3, #68
+  61 0020 FB18     		adds	r3, r7, r3
+  62 0022 0322     		movs	r2, #3
+  63 0024 DA60     		str	r2, [r3, #12]
+  21:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	HAL_GPIO_Init(GPIOA, &GpioInit);
+  64              		.loc 1 21 0
+  65 0026 4423     		movs	r3, #68
+  66 0028 FA18     		adds	r2, r7, r3
+  67 002a 9023     		movs	r3, #144
+  68 002c DB05     		lsls	r3, r3, #23
+  69 002e 1100     		movs	r1, r2
+  70 0030 1800     		movs	r0, r3
+  71 0032 FFF7FEFF 		bl	HAL_GPIO_Init
+  22:.././hal/stm32f0_nano/stm32f0_hal_nano.c ****     
+  23:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	GpioInit.Pin       = GPIO_PIN_4;
+  72              		.loc 1 23 0
+  73 0036 4423     		movs	r3, #68
+  74 0038 FB18     		adds	r3, r7, r3
+  75 003a 1022     		movs	r2, #16
+  76 003c 1A60     		str	r2, [r3]
+  24:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	GpioInit.Mode      = GPIO_MODE_OUTPUT_PP;
+  77              		.loc 1 24 0
+  78 003e 4423     		movs	r3, #68
+  79 0040 FB18     		adds	r3, r7, r3
+  80 0042 0122     		movs	r2, #1
+  81 0044 5A60     		str	r2, [r3, #4]
+  25:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	GpioInit.Pull      = GPIO_NOPULL;
+  82              		.loc 1 25 0
+  83 0046 4423     		movs	r3, #68
+  84 0048 FB18     		adds	r3, r7, r3
+  85 004a 0022     		movs	r2, #0
+  86 004c 9A60     		str	r2, [r3, #8]
+  26:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	GpioInit.Speed     = GPIO_SPEED_FREQ_HIGH;
+  87              		.loc 1 26 0
+  88 004e 4423     		movs	r3, #68
+  89 0050 FB18     		adds	r3, r7, r3
+  90 0052 0322     		movs	r2, #3
+  91 0054 DA60     		str	r2, [r3, #12]
+  27:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	HAL_GPIO_Init(GPIOA, &GpioInit);
+  92              		.loc 1 27 0
+  93 0056 4423     		movs	r3, #68
+  94 0058 FA18     		adds	r2, r7, r3
+  95 005a 9023     		movs	r3, #144
+  96 005c DB05     		lsls	r3, r3, #23
+  97 005e 1100     		movs	r1, r2
+  98 0060 1800     		movs	r0, r3
+  99 0062 FFF7FEFF 		bl	HAL_GPIO_Init
+  28:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 
+  29:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** #ifdef USE_INTERNAL_CLK
+  30:.././hal/stm32f0_nano/stm32f0_hal_nano.c ****   RCC_OscInitTypeDef RCC_OscInitStruct;
+  31:.././hal/stm32f0_nano/stm32f0_hal_nano.c ****   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  32:.././hal/stm32f0_nano/stm32f0_hal_nano.c ****   RCC_OscInitStruct.HSEState       = RCC_HSE_OFF;
+  33:.././hal/stm32f0_nano/stm32f0_hal_nano.c ****   RCC_OscInitStruct.HSIState       = RCC_HSI_ON;
+  34:.././hal/stm32f0_nano/stm32f0_hal_nano.c ****   RCC_OscInitStruct.PLL.PLLSource  = RCC_PLL_NONE;
+  35:.././hal/stm32f0_nano/stm32f0_hal_nano.c ****   HAL_RCC_OscConfig(&RCC_OscInitStruct);
+  36:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 
+  37:.././hal/stm32f0_nano/stm32f0_hal_nano.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct;
+  38:.././hal/stm32f0_nano/stm32f0_hal_nano.c ****   RCC_ClkInitStruct.ClockType      = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCL
+  39:.././hal/stm32f0_nano/stm32f0_hal_nano.c ****   RCC_ClkInitStruct.SYSCLKSource   = RCC_SYSCLKSOURCE_HSI;
+  40:.././hal/stm32f0_nano/stm32f0_hal_nano.c ****   RCC_ClkInitStruct.AHBCLKDivider  = RCC_SYSCLK_DIV1;
+  41:.././hal/stm32f0_nano/stm32f0_hal_nano.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+  42:.././hal/stm32f0_nano/stm32f0_hal_nano.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+  43:.././hal/stm32f0_nano/stm32f0_hal_nano.c ****   uint32_t flash_latency = 0;
+  44:.././hal/stm32f0_nano/stm32f0_hal_nano.c ****   HAL_RCC_ClockConfig(&RCC_ClkInitStruct, flash_latency);
+  45:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** #else
+  46:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	RCC_OscInitTypeDef RCC_OscInitStruct;
+  47:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE | RCC_OSCILLATORTYPE_HSI;
+ 100              		.loc 1 47 0
+ 101 0066 1423     		movs	r3, #20
+ 102 0068 FB18     		adds	r3, r7, r3
+ 103 006a 0322     		movs	r2, #3
+ 104 006c 1A60     		str	r2, [r3]
+  48:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	RCC_OscInitStruct.HSEState       = RCC_HSE_BYPASS;
+ 105              		.loc 1 48 0
+ 106 006e 1423     		movs	r3, #20
+ 107 0070 FB18     		adds	r3, r7, r3
+ 108 0072 0522     		movs	r2, #5
+ 109 0074 5A60     		str	r2, [r3, #4]
+  49:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	RCC_OscInitStruct.HSIState       = RCC_HSI_OFF;
+ 110              		.loc 1 49 0
+ 111 0076 1423     		movs	r3, #20
+ 112 0078 FB18     		adds	r3, r7, r3
+ 113 007a 0022     		movs	r2, #0
+ 114 007c DA60     		str	r2, [r3, #12]
+  50:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	RCC_OscInitStruct.PLL.PLLSource  = RCC_PLL_NONE;
+ 115              		.loc 1 50 0
+ 116 007e 1423     		movs	r3, #20
+ 117 0080 FB18     		adds	r3, r7, r3
+ 118 0082 0022     		movs	r2, #0
+ 119 0084 5A62     		str	r2, [r3, #36]
+  51:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	HAL_RCC_OscConfig(&RCC_OscInitStruct);
+ 120              		.loc 1 51 0
+ 121 0086 1423     		movs	r3, #20
+ 122 0088 FB18     		adds	r3, r7, r3
+ 123 008a 1800     		movs	r0, r3
+ 124 008c FFF7FEFF 		bl	HAL_RCC_OscConfig
+  52:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 
+  53:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	RCC_ClkInitTypeDef RCC_ClkInitStruct;
+  54:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	RCC_ClkInitStruct.ClockType      = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK
+ 125              		.loc 1 54 0
+ 126 0090 3B1D     		adds	r3, r7, #4
+ 127 0092 0722     		movs	r2, #7
+ 128 0094 1A60     		str	r2, [r3]
+  55:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	RCC_ClkInitStruct.SYSCLKSource   = RCC_SYSCLKSOURCE_HSE;
+ 129              		.loc 1 55 0
+ 130 0096 3B1D     		adds	r3, r7, #4
+ 131 0098 0122     		movs	r2, #1
+ 132 009a 5A60     		str	r2, [r3, #4]
+  56:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	RCC_ClkInitStruct.AHBCLKDivider  = RCC_SYSCLK_DIV1;
+ 133              		.loc 1 56 0
+ 134 009c 3B1D     		adds	r3, r7, #4
+ 135 009e 0022     		movs	r2, #0
+ 136 00a0 9A60     		str	r2, [r3, #8]
+  57:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+ 137              		.loc 1 57 0
+ 138 00a2 3B1D     		adds	r3, r7, #4
+ 139 00a4 0022     		movs	r2, #0
+ 140 00a6 DA60     		str	r2, [r3, #12]
+  58:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0);
+ 141              		.loc 1 58 0
+ 142 00a8 3B1D     		adds	r3, r7, #4
+ 143 00aa 0021     		movs	r1, #0
+ 144 00ac 1800     		movs	r0, r3
+ 145 00ae FFF7FEFF 		bl	HAL_RCC_ClockConfig
+  59:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** #endif
+  60:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** }
+ 146              		.loc 1 60 0
+ 147 00b2 C046     		nop
+ 148 00b4 BD46     		mov	sp, r7
+ 149 00b6 16B0     		add	sp, sp, #88
+ 150              		@ sp needed
+ 151 00b8 80BD     		pop	{r7, pc}
+ 152              		.cfi_endproc
+ 153              	.LFE35:
+ 155 00ba C046     		.section	.text.init_uart,"ax",%progbits
+ 156              		.align	2
+ 157              		.global	init_uart
+ 158              		.code	16
+ 159              		.thumb_func
+ 161              	init_uart:
+ 162              	.LFB36:
+  61:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 
+  62:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** void init_uart(void)
+  63:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** {
+ 163              		.loc 1 63 0
+ 164              		.cfi_startproc
+ 165              		@ args = 0, pretend = 0, frame = 32
+ 166              		@ frame_needed = 1, uses_anonymous_args = 0
+ 167 0000 80B5     		push	{r7, lr}
+ 168              	.LCFI3:
+ 169              		.cfi_def_cfa_offset 8
+ 170              		.cfi_offset 7, -8
+ 171              		.cfi_offset 14, -4
+ 172 0002 88B0     		sub	sp, sp, #32
+ 173              	.LCFI4:
+ 174              		.cfi_def_cfa_offset 40
+ 175 0004 00AF     		add	r7, sp, #0
+ 176              	.LCFI5:
+ 177              		.cfi_def_cfa_register 7
+ 178              	.LBB2:
+  64:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	__HAL_RCC_GPIOA_CLK_ENABLE();
+ 179              		.loc 1 64 0
+ 180 0006 2F4B     		ldr	r3, .L3
+ 181 0008 2E4A     		ldr	r2, .L3
+ 182 000a 5269     		ldr	r2, [r2, #20]
+ 183 000c 8021     		movs	r1, #128
+ 184 000e 8902     		lsls	r1, r1, #10
+ 185 0010 0A43     		orrs	r2, r1
+ 186 0012 5A61     		str	r2, [r3, #20]
+ 187 0014 2B4B     		ldr	r3, .L3
+ 188 0016 5A69     		ldr	r2, [r3, #20]
+ 189 0018 8023     		movs	r3, #128
+ 190 001a 9B02     		lsls	r3, r3, #10
+ 191 001c 1340     		ands	r3, r2
+ 192 001e BB60     		str	r3, [r7, #8]
+ 193 0020 BB68     		ldr	r3, [r7, #8]
+ 194              	.LBE2:
+  65:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	GPIO_InitTypeDef GpioInit;
+  66:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	GpioInit.Pin       = GPIO_PIN_9 | GPIO_PIN_10;
+ 195              		.loc 1 66 0
+ 196 0022 0C23     		movs	r3, #12
+ 197 0024 FB18     		adds	r3, r7, r3
+ 198 0026 C022     		movs	r2, #192
+ 199 0028 D200     		lsls	r2, r2, #3
+ 200 002a 1A60     		str	r2, [r3]
+  67:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	GpioInit.Mode      = GPIO_MODE_AF_PP;
+ 201              		.loc 1 67 0
+ 202 002c 0C23     		movs	r3, #12
+ 203 002e FB18     		adds	r3, r7, r3
+ 204 0030 0222     		movs	r2, #2
+ 205 0032 5A60     		str	r2, [r3, #4]
+  68:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	GpioInit.Pull      = GPIO_PULLUP;
+ 206              		.loc 1 68 0
+ 207 0034 0C23     		movs	r3, #12
+ 208 0036 FB18     		adds	r3, r7, r3
+ 209 0038 0122     		movs	r2, #1
+ 210 003a 9A60     		str	r2, [r3, #8]
+  69:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	GpioInit.Speed     = GPIO_SPEED_FREQ_HIGH;
+ 211              		.loc 1 69 0
+ 212 003c 0C23     		movs	r3, #12
+ 213 003e FB18     		adds	r3, r7, r3
+ 214 0040 0322     		movs	r2, #3
+ 215 0042 DA60     		str	r2, [r3, #12]
+  70:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	GpioInit.Alternate = GPIO_AF1_USART1;
+ 216              		.loc 1 70 0
+ 217 0044 0C23     		movs	r3, #12
+ 218 0046 FB18     		adds	r3, r7, r3
+ 219 0048 0122     		movs	r2, #1
+ 220 004a 1A61     		str	r2, [r3, #16]
+  71:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	HAL_GPIO_Init(GPIOA, &GpioInit);
+ 221              		.loc 1 71 0
+ 222 004c 0C23     		movs	r3, #12
+ 223 004e FA18     		adds	r2, r7, r3
+ 224 0050 9023     		movs	r3, #144
+ 225 0052 DB05     		lsls	r3, r3, #23
+ 226 0054 1100     		movs	r1, r2
+ 227 0056 1800     		movs	r0, r3
+ 228 0058 FFF7FEFF 		bl	HAL_GPIO_Init
+ 229              	.LBB3:
+  72:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 
+  73:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	__HAL_RCC_USART1_CLK_ENABLE();
+ 230              		.loc 1 73 0
+ 231 005c 194B     		ldr	r3, .L3
+ 232 005e 194A     		ldr	r2, .L3
+ 233 0060 9269     		ldr	r2, [r2, #24]
+ 234 0062 8021     		movs	r1, #128
+ 235 0064 C901     		lsls	r1, r1, #7
+ 236 0066 0A43     		orrs	r2, r1
+ 237 0068 9A61     		str	r2, [r3, #24]
+ 238 006a 164B     		ldr	r3, .L3
+ 239 006c 9A69     		ldr	r2, [r3, #24]
+ 240 006e 8023     		movs	r3, #128
+ 241 0070 DB01     		lsls	r3, r3, #7
+ 242 0072 1340     		ands	r3, r2
+ 243 0074 7B60     		str	r3, [r7, #4]
+ 244 0076 7B68     		ldr	r3, [r7, #4]
+ 245              	.LBE3:
+  74:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	__HAL_RCC_USART1_CONFIG(RCC_USART1CLKSOURCE_SYSCLK);
+ 246              		.loc 1 74 0
+ 247 0078 124B     		ldr	r3, .L3
+ 248 007a 124A     		ldr	r2, .L3
+ 249 007c 126B     		ldr	r2, [r2, #48]
+ 250 007e 0321     		movs	r1, #3
+ 251 0080 8A43     		bics	r2, r1
+ 252 0082 0121     		movs	r1, #1
+ 253 0084 0A43     		orrs	r2, r1
+ 254 0086 1A63     		str	r2, [r3, #48]
+  75:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	UartHandle.Instance        = USART1;
+ 255              		.loc 1 75 0
+ 256 0088 0F4B     		ldr	r3, .L3+4
+ 257 008a 104A     		ldr	r2, .L3+8
+ 258 008c 1A60     		str	r2, [r3]
+  76:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	UartHandle.Init.BaudRate   = 38400;
+ 259              		.loc 1 76 0
+ 260 008e 0E4B     		ldr	r3, .L3+4
+ 261 0090 9622     		movs	r2, #150
+ 262 0092 1202     		lsls	r2, r2, #8
+ 263 0094 5A60     		str	r2, [r3, #4]
+  77:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	UartHandle.Init.WordLength = UART_WORDLENGTH_8B;
+ 264              		.loc 1 77 0
+ 265 0096 0C4B     		ldr	r3, .L3+4
+ 266 0098 0022     		movs	r2, #0
+ 267 009a 9A60     		str	r2, [r3, #8]
+  78:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	UartHandle.Init.StopBits   = UART_STOPBITS_1;
+ 268              		.loc 1 78 0
+ 269 009c 0A4B     		ldr	r3, .L3+4
+ 270 009e 0022     		movs	r2, #0
+ 271 00a0 DA60     		str	r2, [r3, #12]
+  79:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	UartHandle.Init.Parity     = UART_PARITY_NONE;
+ 272              		.loc 1 79 0
+ 273 00a2 094B     		ldr	r3, .L3+4
+ 274 00a4 0022     		movs	r2, #0
+ 275 00a6 1A61     		str	r2, [r3, #16]
+  80:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	UartHandle.Init.HwFlowCtl  = UART_HWCONTROL_NONE;
+ 276              		.loc 1 80 0
+ 277 00a8 074B     		ldr	r3, .L3+4
+ 278 00aa 0022     		movs	r2, #0
+ 279 00ac 9A61     		str	r2, [r3, #24]
+  81:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	UartHandle.Init.Mode       = UART_MODE_TX_RX;
+ 280              		.loc 1 81 0
+ 281 00ae 064B     		ldr	r3, .L3+4
+ 282 00b0 0C22     		movs	r2, #12
+ 283 00b2 5A61     		str	r2, [r3, #20]
+  82:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	HAL_UART_Init(&UartHandle);
+ 284              		.loc 1 82 0
+ 285 00b4 044B     		ldr	r3, .L3+4
+ 286 00b6 1800     		movs	r0, r3
+ 287 00b8 FFF7FEFF 		bl	HAL_UART_Init
+  83:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** }
+ 288              		.loc 1 83 0
+ 289 00bc C046     		nop
+ 290 00be BD46     		mov	sp, r7
+ 291 00c0 08B0     		add	sp, sp, #32
+ 292              		@ sp needed
+ 293 00c2 80BD     		pop	{r7, pc}
+ 294              	.L4:
+ 295              		.align	2
+ 296              	.L3:
+ 297 00c4 00100240 		.word	1073876992
+ 298 00c8 00000000 		.word	UartHandle
+ 299 00cc 00380140 		.word	1073821696
+ 300              		.cfi_endproc
+ 301              	.LFE36:
+ 303              		.section	.text.trigger_setup,"ax",%progbits
+ 304              		.align	2
+ 305              		.global	trigger_setup
+ 306              		.code	16
+ 307              		.thumb_func
+ 309              	trigger_setup:
+ 310              	.LFB37:
+  84:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 
+  85:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** void trigger_setup(void)
+  86:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** {
+ 311              		.loc 1 86 0
+ 312              		.cfi_startproc
+ 313              		@ args = 0, pretend = 0, frame = 24
+ 314              		@ frame_needed = 1, uses_anonymous_args = 0
+ 315 0000 80B5     		push	{r7, lr}
+ 316              	.LCFI6:
+ 317              		.cfi_def_cfa_offset 8
+ 318              		.cfi_offset 7, -8
+ 319              		.cfi_offset 14, -4
+ 320 0002 86B0     		sub	sp, sp, #24
+ 321              	.LCFI7:
+ 322              		.cfi_def_cfa_offset 32
+ 323 0004 00AF     		add	r7, sp, #0
+ 324              	.LCFI8:
+ 325              		.cfi_def_cfa_register 7
+ 326              	.LBB4:
+  87:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	__HAL_RCC_GPIOA_CLK_ENABLE();
+ 327              		.loc 1 87 0
+ 328 0006 164B     		ldr	r3, .L6
+ 329 0008 154A     		ldr	r2, .L6
+ 330 000a 5269     		ldr	r2, [r2, #20]
+ 331 000c 8021     		movs	r1, #128
+ 332 000e 8902     		lsls	r1, r1, #10
+ 333 0010 0A43     		orrs	r2, r1
+ 334 0012 5A61     		str	r2, [r3, #20]
+ 335 0014 124B     		ldr	r3, .L6
+ 336 0016 5A69     		ldr	r2, [r3, #20]
+ 337 0018 8023     		movs	r3, #128
+ 338 001a 9B02     		lsls	r3, r3, #10
+ 339 001c 1340     		ands	r3, r2
+ 340 001e 3B60     		str	r3, [r7]
+ 341 0020 3B68     		ldr	r3, [r7]
+ 342              	.LBE4:
+  88:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	
+  89:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	GPIO_InitTypeDef GpioInit;
+  90:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	GpioInit.Pin       = GPIO_PIN_7;
+ 343              		.loc 1 90 0
+ 344 0022 3B1D     		adds	r3, r7, #4
+ 345 0024 8022     		movs	r2, #128
+ 346 0026 1A60     		str	r2, [r3]
+  91:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	GpioInit.Mode      = GPIO_MODE_OUTPUT_PP;
+ 347              		.loc 1 91 0
+ 348 0028 3B1D     		adds	r3, r7, #4
+ 349 002a 0122     		movs	r2, #1
+ 350 002c 5A60     		str	r2, [r3, #4]
+  92:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	GpioInit.Pull      = GPIO_NOPULL;
+ 351              		.loc 1 92 0
+ 352 002e 3B1D     		adds	r3, r7, #4
+ 353 0030 0022     		movs	r2, #0
+ 354 0032 9A60     		str	r2, [r3, #8]
+  93:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	GpioInit.Speed     = GPIO_SPEED_FREQ_HIGH;
+ 355              		.loc 1 93 0
+ 356 0034 3B1D     		adds	r3, r7, #4
+ 357 0036 0322     		movs	r2, #3
+ 358 0038 DA60     		str	r2, [r3, #12]
+  94:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	HAL_GPIO_Init(GPIOA, &GpioInit);
+ 359              		.loc 1 94 0
+ 360 003a 3A1D     		adds	r2, r7, #4
+ 361 003c 9023     		movs	r3, #144
+ 362 003e DB05     		lsls	r3, r3, #23
+ 363 0040 1100     		movs	r1, r2
+ 364 0042 1800     		movs	r0, r3
+ 365 0044 FFF7FEFF 		bl	HAL_GPIO_Init
+  95:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	
+  96:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, RESET);
+ 366              		.loc 1 96 0
+ 367 0048 9023     		movs	r3, #144
+ 368 004a DB05     		lsls	r3, r3, #23
+ 369 004c 0022     		movs	r2, #0
+ 370 004e 8021     		movs	r1, #128
+ 371 0050 1800     		movs	r0, r3
+ 372 0052 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  97:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** }
+ 373              		.loc 1 97 0
+ 374 0056 C046     		nop
+ 375 0058 BD46     		mov	sp, r7
+ 376 005a 06B0     		add	sp, sp, #24
+ 377              		@ sp needed
+ 378 005c 80BD     		pop	{r7, pc}
+ 379              	.L7:
+ 380 005e C046     		.align	2
+ 381              	.L6:
+ 382 0060 00100240 		.word	1073876992
+ 383              		.cfi_endproc
+ 384              	.LFE37:
+ 386              		.section	.text.trigger_high,"ax",%progbits
+ 387              		.align	2
+ 388              		.global	trigger_high
+ 389              		.code	16
+ 390              		.thumb_func
+ 392              	trigger_high:
+ 393              	.LFB38:
+  98:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 
+  99:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** void trigger_high(void)
+ 100:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** {
+ 394              		.loc 1 100 0
+ 395              		.cfi_startproc
+ 396              		@ args = 0, pretend = 0, frame = 0
+ 397              		@ frame_needed = 1, uses_anonymous_args = 0
+ 398 0000 80B5     		push	{r7, lr}
+ 399              	.LCFI9:
+ 400              		.cfi_def_cfa_offset 8
+ 401              		.cfi_offset 7, -8
+ 402              		.cfi_offset 14, -4
+ 403 0002 00AF     		add	r7, sp, #0
+ 404              	.LCFI10:
+ 405              		.cfi_def_cfa_register 7
+ 101:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, SET);
+ 406              		.loc 1 101 0
+ 407 0004 9023     		movs	r3, #144
+ 408 0006 DB05     		lsls	r3, r3, #23
+ 409 0008 0122     		movs	r2, #1
+ 410 000a 8021     		movs	r1, #128
+ 411 000c 1800     		movs	r0, r3
+ 412 000e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 102:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** }
+ 413              		.loc 1 102 0
+ 414 0012 C046     		nop
+ 415 0014 BD46     		mov	sp, r7
+ 416              		@ sp needed
+ 417 0016 80BD     		pop	{r7, pc}
+ 418              		.cfi_endproc
+ 419              	.LFE38:
+ 421              		.section	.text.trigger_low,"ax",%progbits
+ 422              		.align	2
+ 423              		.global	trigger_low
+ 424              		.code	16
+ 425              		.thumb_func
+ 427              	trigger_low:
+ 428              	.LFB39:
+ 103:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 
+ 104:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** void trigger_low(void)
+ 105:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** {
+ 429              		.loc 1 105 0
+ 430              		.cfi_startproc
+ 431              		@ args = 0, pretend = 0, frame = 0
+ 432              		@ frame_needed = 1, uses_anonymous_args = 0
+ 433 0000 80B5     		push	{r7, lr}
+ 434              	.LCFI11:
+ 435              		.cfi_def_cfa_offset 8
+ 436              		.cfi_offset 7, -8
+ 437              		.cfi_offset 14, -4
+ 438 0002 00AF     		add	r7, sp, #0
+ 439              	.LCFI12:
+ 440              		.cfi_def_cfa_register 7
+ 106:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, RESET);
+ 441              		.loc 1 106 0
+ 442 0004 9023     		movs	r3, #144
+ 443 0006 DB05     		lsls	r3, r3, #23
+ 444 0008 0022     		movs	r2, #0
+ 445 000a 8021     		movs	r1, #128
+ 446 000c 1800     		movs	r0, r3
+ 447 000e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 107:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** }   
+ 448              		.loc 1 107 0
+ 449 0012 C046     		nop
+ 450 0014 BD46     		mov	sp, r7
+ 451              		@ sp needed
+ 452 0016 80BD     		pop	{r7, pc}
+ 453              		.cfi_endproc
+ 454              	.LFE39:
+ 456              		.section	.text.getch,"ax",%progbits
+ 457              		.align	2
+ 458              		.global	getch
+ 459              		.code	16
+ 460              		.thumb_func
+ 462              	getch:
+ 463              	.LFB40:
+ 108:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 
+ 109:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** char getch(void)
+ 110:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** {
+ 464              		.loc 1 110 0
+ 465              		.cfi_startproc
+ 466              		@ args = 0, pretend = 0, frame = 8
+ 467              		@ frame_needed = 1, uses_anonymous_args = 0
+ 468 0000 80B5     		push	{r7, lr}
+ 469              	.LCFI13:
+ 470              		.cfi_def_cfa_offset 8
+ 471              		.cfi_offset 7, -8
+ 472              		.cfi_offset 14, -4
+ 473 0002 82B0     		sub	sp, sp, #8
+ 474              	.LCFI14:
+ 475              		.cfi_def_cfa_offset 16
+ 476 0004 00AF     		add	r7, sp, #0
+ 477              	.LCFI15:
+ 478              		.cfi_def_cfa_register 7
+ 111:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	uint8_t d;
+ 112:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	while(HAL_UART_Receive(&UartHandle, &d, 1, 5000) != HAL_OK);
+ 479              		.loc 1 112 0
+ 480 0006 C046     		nop
+ 481              	.L11:
+ 482              		.loc 1 112 0 is_stmt 0 discriminator 1
+ 483 0008 064B     		ldr	r3, .L13
+ 484 000a F91D     		adds	r1, r7, #7
+ 485 000c 0648     		ldr	r0, .L13+4
+ 486 000e 0122     		movs	r2, #1
+ 487 0010 FFF7FEFF 		bl	HAL_UART_Receive
+ 488 0014 031E     		subs	r3, r0, #0
+ 489 0016 F7D1     		bne	.L11
+ 113:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	return d;
+ 490              		.loc 1 113 0 is_stmt 1
+ 491 0018 FB1D     		adds	r3, r7, #7
+ 492 001a 1B78     		ldrb	r3, [r3]
+ 114:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** }
+ 493              		.loc 1 114 0
+ 494 001c 1800     		movs	r0, r3
+ 495 001e BD46     		mov	sp, r7
+ 496 0020 02B0     		add	sp, sp, #8
+ 497              		@ sp needed
+ 498 0022 80BD     		pop	{r7, pc}
+ 499              	.L14:
+ 500              		.align	2
+ 501              	.L13:
+ 502 0024 88130000 		.word	5000
+ 503 0028 00000000 		.word	UartHandle
+ 504              		.cfi_endproc
+ 505              	.LFE40:
+ 507              		.section	.text.putch,"ax",%progbits
+ 508              		.align	2
+ 509              		.global	putch
+ 510              		.code	16
+ 511              		.thumb_func
+ 513              	putch:
+ 514              	.LFB41:
+ 115:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 
+ 116:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** void putch(char c)
+ 117:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** {
+ 515              		.loc 1 117 0
+ 516              		.cfi_startproc
+ 517              		@ args = 0, pretend = 0, frame = 16
+ 518              		@ frame_needed = 1, uses_anonymous_args = 0
+ 519 0000 80B5     		push	{r7, lr}
+ 520              	.LCFI16:
+ 521              		.cfi_def_cfa_offset 8
+ 522              		.cfi_offset 7, -8
+ 523              		.cfi_offset 14, -4
+ 524 0002 84B0     		sub	sp, sp, #16
+ 525              	.LCFI17:
+ 526              		.cfi_def_cfa_offset 24
+ 527 0004 00AF     		add	r7, sp, #0
+ 528              	.LCFI18:
+ 529              		.cfi_def_cfa_register 7
+ 530 0006 0200     		movs	r2, r0
+ 531 0008 FB1D     		adds	r3, r7, #7
+ 532 000a 1A70     		strb	r2, [r3]
+ 118:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	uint8_t d  = c;
+ 533              		.loc 1 118 0
+ 534 000c 0F23     		movs	r3, #15
+ 535 000e FB18     		adds	r3, r7, r3
+ 536 0010 FA1D     		adds	r2, r7, #7
+ 537 0012 1278     		ldrb	r2, [r2]
+ 538 0014 1A70     		strb	r2, [r3]
+ 119:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	HAL_UART_Transmit(&UartHandle,  &d, 1, 5000);
+ 539              		.loc 1 119 0
+ 540 0016 054B     		ldr	r3, .L16
+ 541 0018 0F22     		movs	r2, #15
+ 542 001a B918     		adds	r1, r7, r2
+ 543 001c 0448     		ldr	r0, .L16+4
+ 544 001e 0122     		movs	r2, #1
+ 545 0020 FFF7FEFF 		bl	HAL_UART_Transmit
+ 120:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** }
+ 546              		.loc 1 120 0
+ 547 0024 C046     		nop
+ 548 0026 BD46     		mov	sp, r7
+ 549 0028 04B0     		add	sp, sp, #16
+ 550              		@ sp needed
+ 551 002a 80BD     		pop	{r7, pc}
+ 552              	.L17:
+ 553              		.align	2
+ 554              	.L16:
+ 555 002c 88130000 		.word	5000
+ 556 0030 00000000 		.word	UartHandle
+ 557              		.cfi_endproc
+ 558              	.LFE41:
+ 560              		.section	.text.led_error,"ax",%progbits
+ 561              		.align	2
+ 562              		.global	led_error
+ 563              		.code	16
+ 564              		.thumb_func
+ 566              	led_error:
+ 567              	.LFB42:
+ 121:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 
+ 122:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 
+ 123:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** void led_error(unsigned int status)
+ 124:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** {
+ 568              		.loc 1 124 0
+ 569              		.cfi_startproc
+ 570              		@ args = 0, pretend = 0, frame = 8
+ 571              		@ frame_needed = 1, uses_anonymous_args = 0
+ 572 0000 80B5     		push	{r7, lr}
+ 573              	.LCFI19:
+ 574              		.cfi_def_cfa_offset 8
+ 575              		.cfi_offset 7, -8
+ 576              		.cfi_offset 14, -4
+ 577 0002 82B0     		sub	sp, sp, #8
+ 578              	.LCFI20:
+ 579              		.cfi_def_cfa_offset 16
+ 580 0004 00AF     		add	r7, sp, #0
+ 581              	.LCFI21:
+ 582              		.cfi_def_cfa_register 7
+ 583 0006 7860     		str	r0, [r7, #4]
+ 125:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, status);
+ 584              		.loc 1 125 0
+ 585 0008 7B68     		ldr	r3, [r7, #4]
+ 586 000a DAB2     		uxtb	r2, r3
+ 587 000c 9023     		movs	r3, #144
+ 588 000e DB05     		lsls	r3, r3, #23
+ 589 0010 1021     		movs	r1, #16
+ 590 0012 1800     		movs	r0, r3
+ 591 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 126:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** }
+ 592              		.loc 1 126 0
+ 593 0018 C046     		nop
+ 594 001a BD46     		mov	sp, r7
+ 595 001c 02B0     		add	sp, sp, #8
+ 596              		@ sp needed
+ 597 001e 80BD     		pop	{r7, pc}
+ 598              		.cfi_endproc
+ 599              	.LFE42:
+ 601              		.section	.text.led_ok,"ax",%progbits
+ 602              		.align	2
+ 603              		.global	led_ok
+ 604              		.code	16
+ 605              		.thumb_func
+ 607              	led_ok:
+ 608              	.LFB43:
+ 127:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 
+ 128:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** void led_ok(unsigned int status)
+ 129:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** {
+ 609              		.loc 1 129 0
+ 610              		.cfi_startproc
+ 611              		@ args = 0, pretend = 0, frame = 8
+ 612              		@ frame_needed = 1, uses_anonymous_args = 0
+ 613 0000 80B5     		push	{r7, lr}
+ 614              	.LCFI22:
+ 615              		.cfi_def_cfa_offset 8
+ 616              		.cfi_offset 7, -8
+ 617              		.cfi_offset 14, -4
+ 618 0002 82B0     		sub	sp, sp, #8
+ 619              	.LCFI23:
+ 620              		.cfi_def_cfa_offset 16
+ 621 0004 00AF     		add	r7, sp, #0
+ 622              	.LCFI24:
+ 623              		.cfi_def_cfa_register 7
+ 624 0006 7860     		str	r0, [r7, #4]
+ 130:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, status);
+ 625              		.loc 1 130 0
+ 626 0008 7B68     		ldr	r3, [r7, #4]
+ 627 000a DAB2     		uxtb	r2, r3
+ 628 000c 9023     		movs	r3, #144
+ 629 000e DB05     		lsls	r3, r3, #23
+ 630 0010 0421     		movs	r1, #4
+ 631 0012 1800     		movs	r0, r3
+ 632 0014 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 131:.././hal/stm32f0_nano/stm32f0_hal_nano.c **** }
+ 633              		.loc 1 131 0
+ 634 0018 C046     		nop
+ 635 001a BD46     		mov	sp, r7
+ 636 001c 02B0     		add	sp, sp, #8
+ 637              		@ sp needed
+ 638 001e 80BD     		pop	{r7, pc}
+ 639              		.cfi_endproc
+ 640              	.LFE43:
+ 642              		.text
+ 643              	.Letext0:
+ 644              		.file 2 "/usr/include/newlib/machine/_default_types.h"
+ 645              		.file 3 "/usr/include/newlib/sys/_stdint.h"
+ 646              		.file 4 ".././hal/stm32f0/CMSIS/device/stm32f030x6.h"
+ 647              		.file 5 ".././hal/stm32f0/CMSIS/device/stm32f0xx.h"
+ 648              		.file 6 ".././hal/stm32f0/stm32f0xx_hal_def.h"
+ 649              		.file 7 ".././hal/stm32f0/stm32f0xx_hal_rcc.h"
+ 650              		.file 8 ".././hal/stm32f0/stm32f0xx_hal_gpio.h"
+ 651              		.file 9 ".././hal/stm32f0/stm32f0xx_hal_dma.h"
+ 652              		.file 10 ".././hal/stm32f0/stm32f0xx_hal_uart.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 stm32f0_hal_nano.c
+                            *COM*:0000000000000070 UartHandle
+     /tmp/cctaRQlZ.s:21     .text.platform_init:0000000000000000 $t
+     /tmp/cctaRQlZ.s:26     .text.platform_init:0000000000000000 platform_init
+     /tmp/cctaRQlZ.s:156    .text.init_uart:0000000000000000 $t
+     /tmp/cctaRQlZ.s:161    .text.init_uart:0000000000000000 init_uart
+     /tmp/cctaRQlZ.s:297    .text.init_uart:00000000000000c4 $d
+     /tmp/cctaRQlZ.s:304    .text.trigger_setup:0000000000000000 $t
+     /tmp/cctaRQlZ.s:309    .text.trigger_setup:0000000000000000 trigger_setup
+     /tmp/cctaRQlZ.s:382    .text.trigger_setup:0000000000000060 $d
+     /tmp/cctaRQlZ.s:387    .text.trigger_high:0000000000000000 $t
+     /tmp/cctaRQlZ.s:392    .text.trigger_high:0000000000000000 trigger_high
+     /tmp/cctaRQlZ.s:422    .text.trigger_low:0000000000000000 $t
+     /tmp/cctaRQlZ.s:427    .text.trigger_low:0000000000000000 trigger_low
+     /tmp/cctaRQlZ.s:457    .text.getch:0000000000000000 $t
+     /tmp/cctaRQlZ.s:462    .text.getch:0000000000000000 getch
+     /tmp/cctaRQlZ.s:502    .text.getch:0000000000000024 $d
+     /tmp/cctaRQlZ.s:508    .text.putch:0000000000000000 $t
+     /tmp/cctaRQlZ.s:513    .text.putch:0000000000000000 putch
+     /tmp/cctaRQlZ.s:555    .text.putch:000000000000002c $d
+     /tmp/cctaRQlZ.s:561    .text.led_error:0000000000000000 $t
+     /tmp/cctaRQlZ.s:566    .text.led_error:0000000000000000 led_error
+     /tmp/cctaRQlZ.s:602    .text.led_ok:0000000000000000 $t
+     /tmp/cctaRQlZ.s:607    .text.led_ok:0000000000000000 led_ok
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_Init
+HAL_RCC_OscConfig
+HAL_RCC_ClockConfig
+HAL_UART_Init
+HAL_GPIO_WritePin
+HAL_UART_Receive
+HAL_UART_Transmit
