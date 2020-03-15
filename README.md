@@ -54,7 +54,10 @@ We began with the basic setup of the Chip Whisperer Jupyter Notebook. This Noteb
 We completed the first eight tutorials over the course of a few days to familiarize ourselves with the equipment and API. These tutorials helped us understand poweranalysis, capturing data, viewing data, and analyizing our data. We learned how we can find patterns in the waveforms produced from power traces to identify changes in the behavior of the processor. Every waveform is different for different functions in a line of code. In addition to getting this general knowledge, the tutorials taught us how to implement our own attacks on any code. We learned how to modify and upload the firmware to our needs. Within the firmware, we included the running code so that our traces captured the processor's behavior as it ran. We also learned to tailor our output graphs and sampling numbers to get a better view of the waveforms we were focused on. 
 
 ## Understanding Floating Point Multiplication
-Before delving into the inner workings of neural networks and trying to find waveforms, we broke up the components of  a neural network and focued on one of the essential calculations, multiplication. Our chosen convultional neural network will only be working with binary, as we assumed a strictly black and white image was the input. Our goal in this step is to find the differeneces in waveforms for multiplication of zeros and multiplication of a zero and one floating point value.
+Before delving into the inner workings of neural networks and trying to find waveforms, we broke up the components of  a neural network and focued on one of the essential calculations, multiplication. Our chosen convultional neural network will only be working with binary, as we assumed a strictly black and white image was the input. Our goal in this step is to find the differeneces in waveforms for floating point multiplication of zeros, ones, and zero and one. By identifying these stand alone operations we can further identify these forms in the power analysis of a neural network. 
+**Firmware Updates:**
+
+**Patterns:** ....From the images attached we can see what the resulting value from multiplication was....
 
 ## Choosing a Convolutional Neural Network
 
