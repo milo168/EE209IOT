@@ -48,14 +48,17 @@ Installing Picoscope Drivers:
 2. [Differential Power Analysis](https://www.paulkocher.com/doc/DifferentialPowerAnalysis.pdf)
 3. [Chip Whisper Tutorial](https://wiki.newae.com/Getting_Started)
 
-Understanding Power Analysis and Chip Whisperer Software:
+**Understanding Power Analysis and Chip Whisperer Software:**
 We began with the basic setup of the Chip Whisperer Jupyter Notebook. This Notebook is a collection of scripts and informative documents to support a beginning user. Our group followed the Suggested Completion Order document to get an introduction in how to use ChipWhisperer API along with the ChipWhispererNano. 
 
 We completed the first eight tutorials over the course of a few days to familiarize ourselves with the equipment and API. These tutorials helped us understand poweranalysis, capturing data, viewing data, and analyizing our data. We learned how we can find patterns in the waveforms produced from power traces to identify changes in the behavior of the processor. Every waveform is different for different functions in a line of code. In addition to getting this general knowledge, the tutorials taught us how to implement our own attacks on any code. We learned how to modify and upload the firmware to our needs. Within the firmware, we included the running code so that our traces captured the processor's behavior as it ran. We also learned to tailor our output graphs and sampling numbers to get a better view of the waveforms we were focused on. 
 
 ## Understanding Floating Point Multiplication
-## Choosing a Neural Network
-## Identifying Patterns in a Neural Network
+Before delving into the inner workings of neural networks and trying to find waveforms, we broke up the components of  a neural network and focued on one of the essential calculations, multiplication. Our chosen convultional neural network will only be working with binary, as we assumed a strictly black and white image was the input. Our goal in this step is to find the differeneces in waveforms for multiplication of zeros and multiplication of a zero and one floating point value.
+
+## Choosing a Convolutional Neural Network
+
+## Identifying Patterns in a the Convolutional Neural Network
 
 ## Expanding our Project
 ## Identifying Addition
