@@ -90,4 +90,7 @@ Assemby File
 ## Floating Points Attack
 We were unable to succesfully identify the binarized weights when using integer addition. To relax this restriction, we have assumed that the addition used floating point addition for the one bits counter. From there we were able to see patterns of 0's and 1's in the weights. However, to truly recover the weight, two input strings were needed: one with all 0's and one with all 1's. By using these two patterns, we are able to tell whether it was the weight that contained a 0 or whether it was the input. This is needed since XNOR of (0,1) and (1,0) both result in 0, making it indistinguishable of which had what bit.
 
-Determining Weights
+Our weight pattern in this example is {0,1,0,1,0,1,0,1}. For our two attack inputs, we choosed {0,0,0,0,0,0,0,0} and {1,1,1,1,1,1,1,1} to be able to truly tell the weight. Below are the two traces for all zeroes and all ones respectively. When the accumulate encountered a 0, the floating point add is short, whereas when it encountered a 1 it was longer. After identifying what the XNOR results were from timing the floating point addition, we were able to reconstruct the original weight pattern back out. When the floating point add was doing a 1 for the all zeroes input, we knew that place had a 0. As for the all ones input, we knew that place had a 1.
+
+![waveform zeroes](/images/BCNNfloating0x0000marked.png)
+![waveform ones](/images/BCNNfloating0xFFFFmarked.png)
