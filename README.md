@@ -67,7 +67,7 @@ When doing floating point addition, we found that there was no difference betwee
 ## Identifying Patterns in a the Convolutional Neural Network
 Knowing that floating point multiply has different waveforms for non-zero and zero values, we used a convolutional neural network used in identifying digits in the MNIST dataset. Our attack focused on the first layer of the neural network as it is the layer where the inputs can be easily retrieved. The input to the convolutional neural network is a 28x28 image in which the intensity is binary, either dark or bright (0 or 1). Below is a successful demonstration of the first 5 pixels retrieved from the input image. The input pixels were {0,0,1,0,1,1}.
 
-![waveform guess](/images/loop04marked.png)
+![waveform guess](/images/001011marked.png)
 
 ## Expanding our Project
 ## Identifying Addition
