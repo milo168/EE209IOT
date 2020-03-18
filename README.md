@@ -21,7 +21,9 @@ Items Used:
   * Picoscope 2204A
   * Raspberry Pi Zero
   * Chipwhisperer Nano
-  
+
+Although we ended up not using the Picoscope, below is a tutorial we find useful for those who will use it in the future. Chipwhisperer is currently overhauling their API so most of documentations are fragmented for picoscope support. Below are the steps to get picoscope working with chipwhisperer API.
+
 Installing Picoscope Drivers:
 * Get drivers from [Pico Technology](https://www.picotech.com/downloads).
   * As of current, install drivers for 2204A for Windows OS 64-bit: Picoscope (6.14.10) and PicoSDK 64-bit (10.6.13).
