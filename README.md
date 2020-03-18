@@ -47,6 +47,8 @@ Installing Picoscope Drivers:
 1. [Reverse Engineering Neural Networks](https://www.usenix.org/conference/usenixsecurity19/presentation/batina)
 2. [Differential Power Analysis](https://www.paulkocher.com/doc/DifferentialPowerAnalysis.pdf)
 3. [Chip Whisper Tutorial](https://wiki.newae.com/Getting_Started)
+4. [Binarized Neural Networks](https://arxiv.org/pdf/1602.02830.pdf)
+5. [Pop Count](https://software.intel.com/en-us/articles/binary-neural-networks)
 
 **Understanding Power Analysis and Chip Whisperer Software:**
 We began with the basic setup of the Chip Whisperer Jupyter Notebook. This Notebook is a collection of scripts and informative documents to support a beginning user. Our group followed the Suggested Completion Order document to get an introduction in how to use ChipWhisperer API along with the ChipWhispererNano. 
@@ -60,7 +62,7 @@ When doing floating point multiplication, there are distinct waveforms for non-z
 
 ![waveform multiply](/images/loop04marked.png)
 
-When doing floating point addition, we found that there was no difference between zero and non-zero addition.
+When doing floating point addition, we found that there was no also a difference between zero and non-zero values.
 
 **Firmware Updates:**
 
@@ -69,16 +71,21 @@ Knowing that floating point multiply has different waveforms for non-zero and ze
 
 ![waveform guess](/images/001011marked.png)
 
+We can see in between the marked sections, a Y shaped pattern. On the left half of the Y is the multiply, then on the right half is the accumulate. When doing floatin point multiply on non-zero values, it is longer than compared to multiply with zero values. We also see that the time to do floating point addition is also different depending on input.
+
 ## Expanding our Project
+We wanted to see if it was possibe to attack binarized neural networks. Binarized neural networks used binarized weights which removes the need to use floating point hardware. Instead, bitwise operations can be performed, making binarized neural networks fast and storage efficient. We have identified one of the important function for binary neural networks. This function is called popcount. Popcount works by doing an XNOR on two inputs then it counts the number of one bits.
+
 ## Identifying Addition
 Addition:
 Addition with Array Accessing:
-## Implementing Binary Neural Network Classification
 ## Integer Attack
 Direct Addition
 Using Arrays
 Memory Access
 Assemby File
+
 ## Floating Points Attack
-Assumptions: popcount is float type
+We were unable to succesfully identify the binarized weights when using integer addition. To relax this restriction, we have assumed that the addition used floating point addition for the one bits counter. From there we were able to see patterns of 0's and 1's in the weights. However, to truly recover the weight, two input strings were needed: one with all 0's and one with all 1's. By using these two patterns, we are able to tell whether it was the weight that contained a 0 or whether it was the input. This is needed since XNOR of (0,1) and (1,0) both result in 0, making it indistinguishable of which had what bit.
+
 Determining Weights
