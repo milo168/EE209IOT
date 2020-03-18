@@ -22,7 +22,7 @@ Items Used:
   * Raspberry Pi Zero
   * Chipwhisperer Nano
 
-Although we ended up not using the Picoscope, below is a tutorial we find useful for those who will use it in the future. Chipwhisperer is currently overhauling their API so most of documentations are fragmented for picoscope support. Below are the steps to get picoscope working with chipwhisperer API.
+Although we ended up not using the Picoscope, below is a tutorial we find useful for those who will use it in the future. Chipwhisperer is currently overhauling their API, so most of the documentations are fragmented for picoscope support. Below are the steps to get picoscope working with chipwhisperer API.
 
 Installing Picoscope Drivers:
 * Get drivers from [Pico Technology](https://www.picotech.com/downloads).
