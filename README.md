@@ -64,7 +64,7 @@ When doing floating point multiplication, there are distinct waveforms for non-z
 
 ![waveform multiply](/images/loop04marked.png)
 
-When doing floating point addition, we found that there was no also a difference between zero and non-zero values.
+When doing floating point addition, we found that there was also a difference between zero and non-zero values.
 
 **Firmware Updates:**
 
