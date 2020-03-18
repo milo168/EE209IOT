@@ -58,7 +58,7 @@ Before delving into the inner workings of neural networks and trying to find wav
 
 When doing floating multiplication, there are distinct waveforms for non-zero and zero values. As seen in the image below, the section marked 0 shows a floating multiply with a zero value, while the rest of the sections (1-4) are done with non-zero values. The time it takes to do a floating zero multiply is 120 unit time compared to the non-zero ones which are roughly 160 time units.
 
-![waveform multiply](/images/loop%200-4%20marked.png)
+![waveform multiply](/images/loop04marked.png)
 **Firmware Updates:**
 
 ## Identifying Patterns in a the Convolutional Neural Network
