@@ -54,14 +54,20 @@ We began with the basic setup of the Chip Whisperer Jupyter Notebook. This Noteb
 We completed the first eight tutorials over the course of a few days to familiarize ourselves with the equipment and API. These tutorials helped us understand poweranalysis, capturing data, viewing data, and analyizing our data. We learned how we can find patterns in the waveforms produced from power traces to identify changes in the behavior of the processor. Every waveform is different for different functions in a line of code. In addition to getting this general knowledge, the tutorials taught us how to implement our own attacks on any code. We learned how to modify and upload the firmware to our needs. Within the firmware, we included the running code so that our traces captured the processor's behavior as it ran. We also learned to tailor our output graphs and sampling numbers to get a better view of the waveforms we were focused on. 
 
 ## Understanding Floating Point Multiplication
-Before delving into the inner workings of neural networks and trying to find waveforms, we broke up the components of a neural network and focused on one of the essential calculations, multiplication. Our chosen convultional neural network will only be working with binary, as we assumed a strictly black and white image was the input. Our goal in this step is to find the differeneces in waveforms for floating point multiplication of zeros, ones, and zero and one. By identifying these stand alone operations we can further identify these forms in the power analysis of a neural network. 
+Before delving into the inner workings of neural networks and trying to find waveforms, we broke up the components of a neural network and focused on one of the essential calculations, multiplication. Our goal in this step is to find the differeneces in waveforms for floating point multiplication of zeros and non-zero values. By identifying these stand alone operations we can further identify these forms in the power analysis of a neural network. 
 
-When doing floating multiplication, there are distinct waveforms for non-zero and zero values. As seen in the image below, the section marked 0 shows a floating multiply with a zero value, while the rest of the sections (1-4) are done with non-zero values. The time it takes to do a floating zero multiply is 120 unit time compared to the non-zero ones which are roughly 160 time units.
+When doing floating point multiplication, there are distinct waveforms for non-zero and zero values. As seen in the image below, the section marked 0 shows a floating multiply with a zero value, while the rest of the sections (1-4) are done with non-zero values. The time it takes to do a floating zero multiply is 120 unit time compared to the non-zero ones which are roughly 160 time units.
 
 ![waveform multiply](/images/loop04marked.png)
+
+When doing floating point addition, we found that there was no difference between zero and non-zero addition.
+
 **Firmware Updates:**
 
 ## Identifying Patterns in a the Convolutional Neural Network
+Knowing that floating point multiply has different waveforms for non-zero and zero values, we used a convolutional neural network used in identifying digits in the MNIST dataset. Our attack focused on the first layer of the neural network as it is the layer where the inputs can be easily retrieved. The input to the convolutional neural network is a 28x28 image in which the intensity is binary, either dark or bright (0 or 1). Below is a successful demonstration of the first 5 pixels retrieved from the input image. The input pixels were {0,0,1,0,1,1}.
+
+![waveform guess](/images/loop04marked.png)
 
 ## Expanding our Project
 ## Identifying Addition
