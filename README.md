@@ -94,3 +94,5 @@ Our weight pattern in this example is {0,1,0,1,0,1,0,1}. For our two attack inpu
 
 ![waveform zeroes](/images/BCNNfloating0x0000marked.png)
 ![waveform ones](/images/BCNNfloating0xFFFFmarked.png)
+
+##Prior Work
