@@ -1,9 +1,6 @@
 ## ECE 209AS Winter 2020
 Project maintained by Joseph Miller, Arelys Navarro, Michael Lo
 
-## Abstract
-IoT security has become increasingly important as many of these embedded devices capture sensitive data and may even do computation on the spot. Through indirect measurements, it is possible to retrieve sensitive data and its computed results. One such side-channel attack is to measure the power consumption during operation. Certain operations have different power signatures (i.e. floating point vs integer operations) and so it is possible to figure out what operation is being done. In this project, we apply power analysis side channel attacks to successfully identify the original image of a Convolutional Neural Network (CNN).
-
 ## Tasks
 - [x] 1/28 Deadline for website with detailed proposal, timeline, and reference paper
 - [x] Wk. 4 Chip Whisperer hands-on training and tutorials
@@ -16,41 +13,8 @@ IoT security has become increasingly important as many of these embedded devices
 - [x] Wk. 10 Implement Binary Netral Network Classification by expanding on work previously done
 - [x] Wk. 10 Create and practice final presentation. Finalize report (site)
 
-## Tutorial Documentation
-Items Used:
-  * Picoscope 2204A
-  * Raspberry Pi Zero
-  * Chipwhisperer Nano
-
-Although we ended up not using the Picoscope, below is a tutorial we find useful for those who will use it in the future. Chipwhisperer is currently overhauling their API, so most of the documentation is fragmented for Picoscope support. Below are the steps to get Picoscope working with Chipwhisperer API.
-
-Installing Picoscope Drivers:
-* Get drivers from [Pico Technology](https://www.picotech.com/downloads).
-  * As of current, install drivers for 2204A for Windows OS 64-bit: Picoscope (6.14.10) and PicoSDK 64-bit (10.6.13).
-* Install ChipWhisperer software from this [ChipWhisperer Github](https://github.com/newaetech/chipwhisperer/releases/download/v4.0.1/Chipwhisperer.v4.0.1.Setup.32-bit.exe).
-  * As of current, ChipWhisperer latest version 5 does not have Picoscope support, so we will be using version 4.
-  * ChipWhisperer v4 uses Python 2 so we cannot simply copy the files to ChipWhisperer v5, since v5 uses Python 3.
-  * Go to current installation and modify __init.py on line 362 <br />
-    For example, in our installation path: C:\Program Files (x86)\ChipWhisperer\WinPython-64bit-2.7.13.1Zero\python-2.7.13.amd64\Lib\ctypes\
-    ```python
-    if handle is None:
-      self._handle = _dlopen(self.name, mode)
-    else:
-    ```
-    to
-    ```python
-    if handle is None:
-      self._handle = _dlopen(str(self.name), mode)
-    else:
-    ```
-    
-
-## Sources
-1. [Reverse Engineering Neural Networks](https://www.usenix.org/conference/usenixsecurity19/presentation/batina)
-2. [Differential Power Analysis](https://www.paulkocher.com/doc/DifferentialPowerAnalysis.pdf)
-3. [Chip Whisper Tutorial](https://wiki.newae.com/Getting_Started)
-4. [Binarized Neural Networks](https://arxiv.org/pdf/1602.02830.pdf)
-5. [Pop Count](https://software.intel.com/en-us/articles/binary-neural-networks)
+## Abstract
+IoT security has become increasingly important as many of these embedded devices capture sensitive data and may even do computation on the spot. Through indirect measurements, it is possible to retrieve sensitive data and its computed results. One such side-channel attack is to measure the power consumption during operation. Certain operations have different power signatures (i.e. floating point vs integer operations) and so it is possible to figure out what operation is being done. In this project, we apply power analysis side channel attacks to successfully identify the original image of a Convolutional Neural Network (CNN).
 
 **Understanding Power Analysis and Chip Whisperer Software:**
 We began with the basic setup of the Chip Whisperer Jupyter Notebook. This Notebook is a collection of scripts and informative documents to support a beginning user. Our group followed the Suggested Completion Order document to get an introduction on how to use ChipWhisperer API along with the ChipWhisperer Nano. 
@@ -69,7 +33,7 @@ When doing floating point addition, we found that there was also a difference be
 **Firmware Updates:**
 To perform any attacks on the device we first need to convert our C code into a firmware binary that can be run on the STM32F0 proccessor included on the ChipWhisperer Nano. This was done by first modifying the makeFile to prevent compiler optimizations and to ensure that the test code we write is not optimized away. Second, a Jupyter notebook was created that generates and uploads the firmware binary, initializes the built in Scope for the ChipWhisperer Nano and runs the scope to capture a power trace for the code contained within the triggerHigh() and triggerLow() function calls of the  get_pt function in our C file. These function calls send a signal to the scope to inform it to start and stop capturing data. To modify the code, all that needs to be modified is the code in-between these function calls inside the ECE209AS-proj.c file.
 
-## Identifying Patterns in a the Convolutional Neural Network
+## Identifying Patterns in a Convolutional Neural Network
 Knowing that floating point multiply has different waveforms for non-zero and zero values, we used a convolutional neural network used in identifying digits in the MNIST dataset. Our attack focused on the first layer of the neural network as it is the layer where the inputs can be easily retrieved. The input to the convolutional neural network is a 28x28 image in which the intensity is binary, either dark or bright (0 or 1). Below is a successful demonstration of the first 5 pixels retrieved from the input image. The input pixels were {0,0,1,0,1,1}.
 
 ![waveform guess](/images/001011marked.png)
@@ -110,6 +74,34 @@ This project was based on the work done in [1]. Their contributions including id
 ## Future Work
 We can see this project expanded in many ways. One point we considered was beginning to introduce non-binary values to the CNN. In this applicaiton, we can begin to consider grey-scale images. Starting with a mid-point value to consider a third value would be a good start. from there we would expand to a range of values. In implementation, this is much more challenging as distinguishing the differences and patterns in traces become more difficult. At that point the group would definitley need to move to a different hardware setup to make similar observations to the CNN results obtained. This could include a Raspberry Zero or another processor such as the Intel Pentium. Aside from the leakage points we observed, there are other hardware optimizations that may leak information. Similar trace analysis may be performed on int//float multiplication by 1, integer multiplication by 0, or division by 1. These all may be exploited by attackers, and further research may be done to address how these attacks may be done as well as mitigation efforts.
 
+## Tutorial Documentation
+Items Used:
+  * Picoscope 2204A
+  * Raspberry Pi Zero
+  * Chipwhisperer Nano
+
+Although we ended up not using the Picoscope, below is a tutorial we find useful for those who will use it in the future. Chipwhisperer is currently overhauling their API, so most of the documentation is fragmented for Picoscope support. Below are the steps to get Picoscope working with Chipwhisperer API.
+
+Installing Picoscope Drivers:
+* Get drivers from [Pico Technology](https://www.picotech.com/downloads).
+  * As of current, install drivers for 2204A for Windows OS 64-bit: Picoscope (6.14.10) and PicoSDK 64-bit (10.6.13).
+* Install ChipWhisperer software from this [ChipWhisperer Github](https://github.com/newaetech/chipwhisperer/releases/download/v4.0.1/Chipwhisperer.v4.0.1.Setup.32-bit.exe).
+  * As of current, ChipWhisperer latest version 5 does not have Picoscope support, so we will be using version 4.
+  * ChipWhisperer v4 uses Python 2 so we cannot simply copy the files to ChipWhisperer v5, since v5 uses Python 3.
+  * Go to current installation and modify __init.py on line 362 <br />
+    For example, in our installation path: C:\Program Files (x86)\ChipWhisperer\WinPython-64bit-2.7.13.1Zero\python-2.7.13.amd64\Lib\ctypes\
+    ```python
+    if handle is None:
+      self._handle = _dlopen(self.name, mode)
+    else:
+    ```
+    to
+    ```python
+    if handle is None:
+      self._handle = _dlopen(str(self.name), mode)
+    else:
+    ```
+
 ## References
 [1] G. Dong, P. Wang, P. Chen, R. Gu and H. Hu, "Floating-Point Multiplication Timing Attack on Deep Neural Network," 2019 IEEE International Conference on Smart Internet of Things (SmartIoT), Tianjin, China, 2019, pp. 155-161.
 
@@ -120,3 +112,11 @@ We can see this project expanded in many ways. One point we considered was begin
 [4] “ChipWhisperer Wiki” [Online]. Available: https://wiki.newae.com/Getting_Started
 
 [5] M. Crawford, Binary Neural Networks, Intel AI Developer Program, August 8, 2018 [Online]. Available: https://software.intel.com/en-us/articles/binary-neural-networks
+
+
+## Sources
+1. [Reverse Engineering Neural Networks](https://www.usenix.org/conference/usenixsecurity19/presentation/batina)
+2. [Differential Power Analysis](https://www.paulkocher.com/doc/DifferentialPowerAnalysis.pdf)
+3. [Chip Whisper Tutorial](https://wiki.newae.com/Getting_Started)
+4. [Binarized Neural Networks](https://arxiv.org/pdf/1602.02830.pdf)
+5. [Pop Count](https://software.intel.com/en-us/articles/binary-neural-networks)
