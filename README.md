@@ -75,6 +75,9 @@ Our weight pattern in this example is {0,1,0,1,0,1,0,1}. For our two attack inpu
 ## Future Work
 We can see this project expanded in many ways. One point we considered was beginning to introduce non-binary values to the CNN. In this applicaiton, we can begin to consider grey-scale images. Starting with a mid-point value to consider a third value would be a good start. from there we would expand to a range of values. In implementation, this is much more challenging as distinguishing the differences and patterns in traces become more difficult. At that point the group would definitley need to move to a different hardware setup to make similar observations to the CNN results obtained. This could include a Raspberry Zero or another processor such as the Intel Pentium. Aside from the leakage points we observed, there are other hardware optimizations that may leak information. Similar trace analysis may be performed on integer or float multiplication by 1, integer multiplication by 0, or division by 1. These all may be exploited by attackers, and further research may be done to address how these attacks may be done as well as mitigation efforts.
 
+## Conclusion
+Overall, our contrubutions through this project includes two different applications of power trace analysis as a side channel attack. We have sucesfully understood power traces and pattern identification to classify outputs and instructions performed. We replicated the results of previous work done on DNN's on a CNN. In addition, we have applied this knowledge to BNN's. In our work with BNN's, we succusefully identify the weights of the BNN. Although there is room for improvement, we can see this work being applied to different settings and beinge expanded further to other, more complex applications.
+
 ## Picoscope Documentation
 Items Used:
   * Picoscope 2204A
