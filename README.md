@@ -67,6 +67,7 @@ When doing floating point multiplication, there are distinct waveforms for non-z
 When doing floating point addition, we found that there was also a difference between zero and non-zero values.
 
 **Firmware Updates:**
+To perform any attacks on the device we first need to convert our C code into a firmware binary that can be run on the STM32F0 proccessor included on the ChipWhisperer Nano. This was done by first modifying the makeFile for to prevent compiler optimizations and to ensure that the test code we write is not optimized away. Second, a Jupyter notebook was created that generates and uploads the firmware binary, initializes the built in Scope for the ChipWhisperer Nano and runs the scope to capture a power trace for the code contained within the triggerHigh() and triggerLow() function calls of the  get_pt function in our C file. These function calls send a signal to the scope to inform it to start and stop capturing data. To modify the code, all that needs to be modified is the code in-between these function calls inside the ECE209AS-proj.c file.
 
 ## Identifying Patterns in a the Convolutional Neural Network
 Knowing that floating point multiply has different waveforms for non-zero and zero values, we used a convolutional neural network used in identifying digits in the MNIST dataset. Our attack focused on the first layer of the neural network as it is the layer where the inputs can be easily retrieved. The input to the convolutional neural network is a 28x28 image in which the intensity is binary, either dark or bright (0 or 1). Below is a successful demonstration of the first 5 pixels retrieved from the input image. The input pixels were {0,0,1,0,1,1}.
@@ -79,16 +80,25 @@ We can see in between the marked sections, a Y shaped pattern. On the left half 
 We wanted to see if it was possibe to attack binarized neural networks. Binarized neural networks used binarized weights which removes the need to use floating point hardware. Instead, bitwise operations can be performed, making binarized neural networks fast and storage efficient. We have identified one of the important function for binary neural networks. This function is called popcount. Popcount works by doing an XNOR on two inputs then it counts the number of one bits.
 
 ## Identifying Addition
-Addition:
-Addition with Array Accessing:
+The biggest target for the attack on a BNN is the pop-count that is incremented to count the number of one bits of the XNORd inputs. We started with the assumption that integer addition would result in different time taken for the calculation depending on whether a nonzero value was added vs a zero value. To test this we ran a series of tests that can be found and commented in the ECE209AS-proj.c file. 
+
 ## Integer Attack
-Direct Addition
-Using Arrays
-Memory Access
-Assemby File
+**Direct Addition:**
+This first attack involved running a for loop that would simply increment a result by a constant value 5, perform a floating multiply to signify the end of one for loop and the start of the final for loop which increments a result by 0. We obtained a waveform that showed that nonzero integer additions took significantly more time than non-integer additions.
+
+![waveform guess](/images/ForLoopsIntegerAddition.png)
+
+**Using Arrays:**
+We then moved on to using arrays to launch an attack and determine which values of the array were zero and nonzero. The resulting data we received unfortunately contradicted what we saw in the prior section. Even upon zooming in to the for loop, it was impossible to tell which were zero values and which were nonzero.
+
+![waveform guess](/images/IntegerAttackOnBCNN.png)
+**Assembly File Analysis:**
+To figure out the cause of this discrepency, the Assembly file was analyzed to discover that we unfortunately had a severe flaw in our testing for our first integer attack test. The compiler despite being set to not optimize, still removed the res += 0; instruction. This resulted in a for loop that included instructions for addition followed by one without any instructions run in its body. This forced our hand to come up with an alternative approach to identifying a way to attack the addition instuction for this binary CNN.
+
+![waveform guess](/images/Asm.png)
 
 ## Floating Points Attack
-We were unable to succesfully identify the binarized weights when using integer addition. To relax this restriction, we have assumed that the addition used floating point addition for the one bits counter. From there we were able to see patterns of 0's and 1's in the weights. However, to truly recover the weight, two input strings were needed: one with all 0's and one with all 1's. By using these two patterns, we are able to tell whether it was the weight that contained a 0 or whether it was the input. This is needed since XNOR of (0,1) and (1,0) both result in 0, making it indistinguishable of which had what bit.
+Since we were unable to succesfully identify the binarized weights when using integer addition. To relax this restriction, we have assumed that the addition used floating point addition for the one bits counter. From there we were able to see patterns of 0's and 1's in the weights. However, to truly recover the weight, two input strings were needed: one with all 0's and one with all 1's. By using these two patterns, we are able to tell whether it was the weight that contained a 0 or whether it was the input. This is needed since XNOR of (0,1) and (1,0) both result in 0, making it indistinguishable of which had what bit.
 
 Our weight pattern in this example is {0,1,0,1,0,1,0,1}. For our two attack inputs, we choosed {0,0,0,0,0,0,0,0} and {1,1,1,1,1,1,1,1} to be able to truly tell the weight. Below are the two traces for all zeroes and all ones respectively. When the accumulate encountered a 0, the floating point add is short, whereas when it encountered a 1 it was longer. After identifying what the XNOR results were from timing the floating point addition, we were able to reconstruct the original weight pattern back out. When the floating point add was doing a 1 for the all zeroes input, we knew that place had a 0. As for the all ones input, we knew that place had a 1.
 
