@@ -95,4 +95,7 @@ Our weight pattern in this example is {0,1,0,1,0,1,0,1}. For our two attack inpu
 ![waveform zeroes](/images/BCNNfloating0x0000marked.png)
 ![waveform ones](/images/BCNNfloating0xFFFFmarked.png)
 
-##Prior Work
+## Prior Work
+
+## Future Work
+We can see this project expanded in many ways. One point we considered was beginning to introduce non-binary values to the CNN. In this applicaiton, we can begin to consider grey-scale images. Starting with a mid-point value to consider a third value would be a good start. from there we would expand to a range of values. In implementation, this is much more challenges as distinguishing the differences and patterns in traces become more difficult. At that point the group would definitley need to move to a different hardware setup to make similar observations to the CNN results obtained.
