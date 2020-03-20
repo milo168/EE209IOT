@@ -109,3 +109,14 @@ Our weight pattern in this example is {0,1,0,1,0,1,0,1}. For our two attack inpu
 
 ## Future Work
 We can see this project expanded in many ways. One point we considered was beginning to introduce non-binary values to the CNN. In this applicaiton, we can begin to consider grey-scale images. Starting with a mid-point value to consider a third value would be a good start. from there we would expand to a range of values. In implementation, this is much more challenges as distinguishing the differences and patterns in traces become more difficult. At that point the group would definitley need to move to a different hardware setup to make similar observations to the CNN results obtained.
+
+## References
+[1] G. Dong, P. Wang, P. Chen, R. Gu and H. Hu, "Floating-Point Multiplication Timing Attack on Deep Neural Network," 2019 IEEE International Conference on Smart Internet of Things (SmartIoT), Tianjin, China, 2019, pp. 155-161.
+
+[2] Kocher P., Jaffe J., Jun B. (1999) Differential Power Analysis. In: Wiener M. (eds) Advances in Cryptology — CRYPTO’ 99. CRYPTO 1999. Lecture Notes in Computer Science, vol 1666. Springer, Berlin, Heidelberg
+
+[3] M. Courbariaux, I. Hubara, D. Soudry, R. El-Yaniv, Y. Bengio, “Binarized Neural Networks: Training Deep Neural Networks with Weights and Activations Constrained to +1 or -1,” Advances in Neural Information Processing Systems 29 (NIPS 2016)
+
+[4] “ChipWhisperer Wiki” [Online]. Available: https://wiki.newae.com/Getting_Started
+
+[5] M. Crawford, Binary Neural Networks, Intel AI Developer Program, August 8, 2018 [Online]. Available: https://software.intel.com/en-us/articles/binary-neural-networks
