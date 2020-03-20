@@ -105,10 +105,10 @@ Our weight pattern in this example is {0,1,0,1,0,1,0,1}. For our two attack inpu
 ![waveform zeroes](/images/BCNNfloating0x0000marked.png)
 ![waveform ones](/images/BCNNfloating0xFFFFmarked.png)
 
-## Prior Work
-
+## Related Work
+This project was based on the work done in [1]. Their contributions including identifying patterns to recognize the output of multiplication. With the use of simple deep neural networks (DNN), they are able to identify the orignal input image. This work does not address more complex, non-binary images. In addition to this work, other work has been to analyze power traces and what they may reveal. At this time, the work in 2019 seems most comparable to our work and expansion.
 ## Future Work
-We can see this project expanded in many ways. One point we considered was beginning to introduce non-binary values to the CNN. In this applicaiton, we can begin to consider grey-scale images. Starting with a mid-point value to consider a third value would be a good start. from there we would expand to a range of values. In implementation, this is much more challenges as distinguishing the differences and patterns in traces become more difficult. At that point the group would definitley need to move to a different hardware setup to make similar observations to the CNN results obtained.
+We can see this project expanded in many ways. One point we considered was beginning to introduce non-binary values to the CNN. In this applicaiton, we can begin to consider grey-scale images. Starting with a mid-point value to consider a third value would be a good start. from there we would expand to a range of values. In implementation, this is much more challenging as distinguishing the differences and patterns in traces become more difficult. At that point the group would definitley need to move to a different hardware setup to make similar observations to the CNN results obtained. This could include a Raspberry Zero or another processor such as the Intel Pentium. Aside from the leakage points we observed, there are other hardware optimizations that may leak information. Similar trace analysis may be performed on int//float multiplication by 1, integer multiplication by 0, or division by 1. These all may be exploited by attackers, and further research may be done to address how these attacks may be done as well as mitigation efforts.
 
 ## References
 [1] G. Dong, P. Wang, P. Chen, R. Gu and H. Hu, "Floating-Point Multiplication Timing Attack on Deep Neural Network," 2019 IEEE International Conference on Smart Internet of Things (SmartIoT), Tianjin, China, 2019, pp. 155-161.
